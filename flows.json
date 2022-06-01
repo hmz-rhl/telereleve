@@ -1,0 +1,1066 @@
+[
+    {
+        "id": "1bab7863175a2ce4",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "5f53c1d6d9be4957",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/DHT11/Temperature",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 330,
+        "y": 120,
+        "wires": [
+            [
+                "b049cb719d272f1b",
+                "964ce4932d4c5549",
+                "49921c75746299c5"
+            ]
+        ]
+    },
+    {
+        "id": "49921c75746299c5",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 970,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "964ce4932d4c5549",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 180,
+        "wires": [
+            [
+                "cdf3d7f1508990c2"
+            ]
+        ]
+    },
+    {
+        "id": "cdf3d7f1508990c2",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/test.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1110,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ac5759d7c40b2ae0",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "Saving formated data to file",
+        "info": "",
+        "x": 1130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "1aea50864b4df733",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "data processing",
+        "info": "",
+        "x": 740,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "a5b066c56a65d705",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "UI chart",
+        "info": "",
+        "x": 570,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "88f2185799e36814",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "getting data from ESP with MQTT",
+        "info": "",
+        "x": 270,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "0b364770c4873b17",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "3,7V min sur Vin",
+        "info": "wx",
+        "x": 240,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "135c75e3778dbbd4",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "2,3V min sur pin 3V",
+        "info": "",
+        "x": 240,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "e214fdb88d9b9fee",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/Battery",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 270,
+        "y": 440,
+        "wires": [
+            [
+                "1d1f08a89e6d375f",
+                "22dcc7ce51d031ab",
+                "5884c1b065fed99f"
+            ]
+        ]
+    },
+    {
+        "id": "07a7a33e511b06e6",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/SGP30/CO2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 280,
+        "y": 520,
+        "wires": [
+            [
+                "ec826afd634b5390",
+                "eac3a9b329b41090",
+                "3003351d4f3a015d"
+            ]
+        ]
+    },
+    {
+        "id": "02584bc35838e245",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/VEML/Lumiere",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 250,
+        "y": 620,
+        "wires": [
+            [
+                "dcaf1eeedd880b23",
+                "3db12e3864a3c70a",
+                "678d0d514534a37b"
+            ]
+        ]
+    },
+    {
+        "id": "1d1f08a89e6d375f",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "msg.payload = msg.payload * 3.3/ 65535;\n\n// mise au format Date;valeur\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 540,
+        "y": 400,
+        "wires": [
+            [
+                "23a8aadb587f6a7b"
+            ]
+        ]
+    },
+    {
+        "id": "ec826afd634b5390",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 500,
+        "wires": [
+            [
+                "f7a1809dee7c8053"
+            ]
+        ]
+    },
+    {
+        "id": "dcaf1eeedd880b23",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 620,
+        "wires": [
+            [
+                "c84c2542fe208136"
+            ]
+        ]
+    },
+    {
+        "id": "f7a1809dee7c8053",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/eCO2.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1090,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "23a8aadb587f6a7b",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/battery.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1120,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c84c2542fe208136",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/presence.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1120,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5884c1b065fed99f",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 750,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "eac3a9b329b41090",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "3db12e3864a3c70a",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "286c1c9ab0837789",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/SGP30/Erreur",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 780,
+        "wires": [
+            [
+                "682dee7bf9319705",
+                "6cd88ee413d8c75b",
+                "c2d1d34fb80d4079"
+            ]
+        ]
+    },
+    {
+        "id": "682dee7bf9319705",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\nvar today = new Date();\n\nvar date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();\n\nvar time = today.getHours() + \":\" + today.getMinutes() + \":\" + today.getSeconds();\n\nvar dateTime = date+' '+time;\n\nmsg.payload = dateTime +\":\" + msg.payload + \"\\n\" ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 580,
+        "y": 780,
+        "wires": [
+            [
+                "69c11f2cb2598291"
+            ]
+        ]
+    },
+    {
+        "id": "69c11f2cb2598291",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/logs.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1110,
+        "y": 780,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "449776b382bd916e",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 300,
+        "wires": [
+            [
+                "b049cb719d272f1b",
+                "3003351d4f3a015d",
+                "678d0d514534a37b",
+                "49921c75746299c5",
+                "47867df291110da8",
+                "b82db034dca199a0",
+                "77527c1c0cc7a9e3"
+            ]
+        ]
+    },
+    {
+        "id": "1df0895398a2f426",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "\n\n\nif(msg.payload == false)\n{\n    msg.payload = 0;\n}\nelse\n{\n    msg.payload = 1;\n}\n\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 860,
+        "wires": [
+            [
+                "d3d83820c0ead459"
+            ]
+        ]
+    },
+    {
+        "id": "6df45723c1b3ee42",
+        "type": "ping",
+        "z": "1bab7863175a2ce4",
+        "protocol": "Automatic",
+        "mode": "timed",
+        "name": "",
+        "host": "192.168.1.250",
+        "timer": "1",
+        "inputs": 0,
+        "x": 170,
+        "y": 1000,
+        "wires": [
+            [
+                "1df0895398a2f426"
+            ]
+        ]
+    },
+    {
+        "id": "37fa7b9880c01b5b",
+        "type": "comment",
+        "z": "1bab7863175a2ce4",
+        "name": "On ping l'ESP pour voir si elle est toujours connecté sur le réseau",
+        "info": "",
+        "x": 310,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "63a4b23366404cad",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/SGP30/H2",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 300,
+        "y": 1040,
+        "wires": [
+            [
+                "ab370ce73f38baae",
+                "715bc68162327bd3",
+                "47867df291110da8"
+            ]
+        ]
+    },
+    {
+        "id": "ab370ce73f38baae",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1020,
+        "wires": [
+            [
+                "362ce6ff1f64abe1"
+            ]
+        ]
+    },
+    {
+        "id": "362ce6ff1f64abe1",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/H2.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1100,
+        "y": 1040,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "715bc68162327bd3",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "b1fb38c667c25396",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/SGP30/Ethanol",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 290,
+        "y": 1220,
+        "wires": [
+            [
+                "1637e210a8c6ebdf",
+                "8e42bef1d73e5f25",
+                "b82db034dca199a0"
+            ]
+        ]
+    },
+    {
+        "id": "1637e210a8c6ebdf",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 1180,
+        "wires": [
+            [
+                "be80a8dbe9e12382"
+            ]
+        ]
+    },
+    {
+        "id": "be80a8dbe9e12382",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/ethanol.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1100,
+        "y": 1160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e42bef1d73e5f25",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 470,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "6cd88ee413d8c75b",
+        "type": "debug",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "77527c1c0cc7a9e3",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = \"\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 840,
+        "y": 940,
+        "wires": [
+            [
+                "c2d1d34fb80d4079"
+            ]
+        ]
+    },
+    {
+        "id": "79ff1d8d06778f67",
+        "type": "ui_button",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "f11b5efe2ddbf16a",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Reset",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 670,
+        "y": 300,
+        "wires": [
+            [
+                "449776b382bd916e"
+            ]
+        ]
+    },
+    {
+        "id": "c2d1d34fb80d4079",
+        "type": "ui_text",
+        "z": "1bab7863175a2ce4",
+        "group": "f11b5efe2ddbf16a",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Log :",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "className": "",
+        "x": 1010,
+        "y": 1360,
+        "wires": []
+    },
+    {
+        "id": "b049cb719d272f1b",
+        "type": "ui_chart",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "f11b5efe2ddbf16a",
+        "order": 0,
+        "width": "10",
+        "height": "6",
+        "label": "Temp",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3003351d4f3a015d",
+        "type": "ui_chart",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "206bc97b92b61699",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "CO2",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1070,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "678d0d514534a37b",
+        "type": "ui_chart",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "f11b5efe2ddbf16a",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "presence",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1140,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "47867df291110da8",
+        "type": "ui_chart",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "206bc97b92b61699",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "H2",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1090,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b82db034dca199a0",
+        "type": "ui_chart",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "206bc97b92b61699",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "ethanol",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1080,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "22dcc7ce51d031ab",
+        "type": "ui_gauge",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "f11b5efe2ddbf16a",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "gtype": "gage",
+        "title": "Battery",
+        "label": "units",
+        "format": "{{value}}",
+        "min": "2",
+        "max": "4",
+        "colors": [
+            "#00b500",
+            "#e6e600",
+            "#ca3838"
+        ],
+        "seg1": "",
+        "seg2": "",
+        "className": "",
+        "x": 890,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "d3d83820c0ead459",
+        "type": "ui_led",
+        "z": "1bab7863175a2ce4",
+        "order": 3,
+        "group": "f11b5efe2ddbf16a",
+        "width": 0,
+        "height": 0,
+        "label": "ESP état de la connexion",
+        "labelPlacement": "left",
+        "labelAlignment": "left",
+        "colorForValue": [
+            {
+                "color": "#c2c2c2",
+                "value": "0",
+                "valueType": "num"
+            },
+            {
+                "color": "#008000",
+                "value": "1",
+                "valueType": "num"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "",
+        "x": 1130,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "84e0de939ececd51",
+        "type": "mqtt-broker",
+        "name": "mosquitto RP",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "f11b5efe2ddbf16a",
+        "type": "ui_group",
+        "name": "ESP1",
+        "tab": "b219e75129d34e77",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "206bc97b92b61699",
+        "type": "ui_group",
+        "name": "SENSOR1",
+        "tab": "b219e75129d34e77",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "b219e75129d34e77",
+        "type": "ui_tab",
+        "name": "Dashboard",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
