@@ -570,13 +570,15 @@ void loop() {
       if (! dht_error)
       {
         temp = dht.getTemperature();
-        while(isnan(temp)){
+        int cpt = 0;
+        while(isnan(temp) && cpt < 5){
           #if DEBUGING == 1
             Serial.println("aghhh temp is nan !");
           #endif
-          delay(100);
+          dht.resetTimer();
+          delay(500);
           temp = dht.getTemperature();
-
+          cpt++;
         }
         Serial.println(temp);
         #if DEBUGING == 1 
