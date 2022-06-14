@@ -570,6 +570,7 @@ void loop() {
 
       if (! dht_error)
       {
+<<<<<<< HEAD
         // temp = dht.getTemperature();
         // Serial.println(temp,16);
         // while(isnan(temp)){
@@ -584,6 +585,23 @@ void loop() {
         // #if DEBUGING == 1 
         //   Serial.println(" DHT Values : publication...");
         // #endif
+=======
+        temp = dht.getTemperature();
+        int cpt = 0;
+        while(isnan(temp) && cpt < 5){
+          #if DEBUGING == 1
+            Serial.println("aghhh temp is nan !");
+          #endif
+          dht.resetTimer();
+          delay(500);
+          temp = dht.getTemperature();
+          cpt++;
+        }
+        Serial.println(temp);
+        #if DEBUGING == 1 
+          Serial.println(" DHT Values : publication...");
+        #endif
+>>>>>>> b7e8fa70e148bae6359d4c51700c097af616856c
         mqtt_publish("esp/DHT11/Temperature", temp);
         // temp = dht.getHumidity();
         mqtt_publish("esp/DHT11/Humidite", hum);
