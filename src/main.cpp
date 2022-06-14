@@ -36,7 +36,7 @@ NC on some GND |  G o         o D2|  GPIO4    --> SDA
 
 #include <DHTesp.h>
 
-#define TIME_TO_SLEEP           30 // en mn
+#define TIME_TO_SLEEP           20 // en mn
 #define DHT_PIN_VCC             12
 #define DHT_PIN                 2
 #define ESP32
@@ -46,11 +46,10 @@ NC on some GND |  G o         o D2|  GPIO4    --> SDA
 #define DEBUGING                 1
 #define MIROIR                   0
 
-#if MIROIR == 1
-  unsigned long tps=0;
-#else
+
   float temp;
-#endif
+  float hum;
+
 
 ADC_MODE(ADC_VCC); // pour renvoyer vcc sur ADC du coup on ne peut plus
 
@@ -212,7 +211,7 @@ void test_and_connexion_mqtt()
     Serial.println("Success!");
   #endif
   client.setServer(mqtt_server, mqttPort);
-  //client.setCallback(callback);//Déclaration de la fonction de souscription
+
   connect_mqtt();
 
 }
@@ -343,6 +342,8 @@ void dht_test()
 
     dht_error = 0;
   }
+  temp = dht.getTemperature();
+  hum = dht.getHumidity();
 }
 
 
@@ -569,25 +570,26 @@ void loop() {
 
       if (! dht_error)
       {
-        temp = dht.getTemperature();
-        while(isnan(temp)){
-          #if DEBUGING == 1
-            Serial.println("aghhh temp is nan !");
-          #endif
-          delay(100);
-          temp = dht.getTemperature();
+        // temp = dht.getTemperature();
+        // Serial.println(temp,16);
+        // while(isnan(temp)){
+        //   #if DEBUGING == 1
+        //     Serial.println("aghhh temp is nan !");
+        //   #endif
+        //   delay(100);
+        //   temp = dht.getTemperature();
 
-        }
-        Serial.println(temp);
-        #if DEBUGING == 1 
-          Serial.println(" DHT Values : publication...");
-        #endif
+        // }
+        // Serial.println(temp);
+        // #if DEBUGING == 1 
+        //   Serial.println(" DHT Values : publication...");
+        // #endif
         mqtt_publish("esp/DHT11/Temperature", temp);
-        temp = dht.getHumidity();
-        mqtt_publish("esp/DHT11/Humidite", temp);
-        #if DEBUGING == 1 
-          Serial.println(" DHT Values : published !");
-        #endif
+        // temp = dht.getHumidity();
+        mqtt_publish("esp/DHT11/Humidite", hum);
+        // #if DEBUGING == 1 
+        //   Serial.println(" DHT Values : published !");
+        // #endif
         
       }
       else
