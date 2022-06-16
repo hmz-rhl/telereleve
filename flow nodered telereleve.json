@@ -20,8 +20,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 330,
-        "y": 120,
+        "x": 270,
+        "y": 200,
         "wires": [
             [
                 "b049cb719d272f1b",
@@ -43,8 +43,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 970,
-        "y": 80,
+        "x": 890,
+        "y": 140,
         "wires": []
     },
     {
@@ -58,8 +58,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 760,
-        "y": 180,
+        "x": 680,
+        "y": 260,
         "wires": [
             [
                 "cdf3d7f1508990c2"
@@ -77,7 +77,7 @@
         "overwriteFile": "false",
         "encoding": "none",
         "x": 1110,
-        "y": 240,
+        "y": 280,
         "wires": [
             []
         ]
@@ -88,8 +88,8 @@
         "z": "1bab7863175a2ce4",
         "name": "Saving formated data to file",
         "info": "",
-        "x": 1130,
-        "y": 280,
+        "x": 1120,
+        "y": 200,
         "wires": []
     },
     {
@@ -98,8 +98,8 @@
         "z": "1bab7863175a2ce4",
         "name": "data processing",
         "info": "",
-        "x": 740,
-        "y": 220,
+        "x": 700,
+        "y": 300,
         "wires": []
     },
     {
@@ -108,8 +108,8 @@
         "z": "1bab7863175a2ce4",
         "name": "UI chart",
         "info": "",
-        "x": 570,
-        "y": 80,
+        "x": 510,
+        "y": 120,
         "wires": []
     },
     {
@@ -118,8 +118,8 @@
         "z": "1bab7863175a2ce4",
         "name": "getting data from ESP with MQTT",
         "info": "",
-        "x": 270,
-        "y": 80,
+        "x": 250,
+        "y": 160,
         "wires": []
     },
     {
@@ -129,7 +129,7 @@
         "name": "3,7V min sur Vin",
         "info": "wx",
         "x": 240,
-        "y": 260,
+        "y": 280,
         "wires": []
     },
     {
@@ -138,8 +138,8 @@
         "z": "1bab7863175a2ce4",
         "name": "2,3V min sur pin 3V",
         "info": "",
-        "x": 240,
-        "y": 300,
+        "x": 210,
+        "y": 340,
         "wires": []
     },
     {
@@ -155,8 +155,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 270,
-        "y": 440,
+        "x": 250,
+        "y": 480,
         "wires": [
             [
                 "1d1f08a89e6d375f",
@@ -178,8 +178,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 280,
-        "y": 520,
+        "x": 260,
+        "y": 560,
         "wires": [
             [
                 "ec826afd634b5390",
@@ -202,7 +202,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 250,
-        "y": 620,
+        "y": 660,
         "wires": [
             [
                 "dcaf1eeedd880b23",
@@ -223,7 +223,7 @@
         "finalize": "",
         "libs": [],
         "x": 540,
-        "y": 400,
+        "y": 420,
         "wires": [
             [
                 "23a8aadb587f6a7b"
@@ -260,7 +260,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 620,
+        "x": 660,
         "y": 620,
         "wires": [
             [
@@ -329,8 +329,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 750,
-        "y": 380,
+        "x": 730,
+        "y": 460,
         "wires": []
     },
     {
@@ -347,7 +347,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 470,
-        "y": 480,
+        "y": 500,
         "wires": []
     },
     {
@@ -363,7 +363,7 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 490,
+        "x": 470,
         "y": 600,
         "wires": []
     },
@@ -436,8 +436,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 820,
-        "y": 300,
+        "x": 760,
+        "y": 360,
         "wires": [
             [
                 "b049cb719d272f1b",
@@ -446,7 +446,8 @@
                 "49921c75746299c5",
                 "47867df291110da8",
                 "b82db034dca199a0",
-                "77527c1c0cc7a9e3"
+                "77527c1c0cc7a9e3",
+                "288cdaa3ba19a7e0"
             ]
         ]
     },
@@ -480,7 +481,7 @@
         "timer": "1",
         "inputs": 0,
         "x": 170,
-        "y": 1000,
+        "y": 980,
         "wires": [
             [
                 "1df0895398a2f426"
@@ -511,7 +512,7 @@
         "rh": 0,
         "inputs": 0,
         "x": 300,
-        "y": 1040,
+        "y": 1020,
         "wires": [
             [
                 "ab370ce73f38baae",
@@ -532,7 +533,7 @@
         "finalize": "",
         "libs": [],
         "x": 720,
-        "y": 1020,
+        "y": 980,
         "wires": [
             [
                 "362ce6ff1f64abe1"
@@ -549,8 +550,8 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 1100,
-        "y": 1040,
+        "x": 1120,
+        "y": 960,
         "wires": [
             []
         ]
@@ -569,7 +570,7 @@
         "statusVal": "",
         "statusType": "auto",
         "x": 490,
-        "y": 1000,
+        "y": 980,
         "wires": []
     },
     {
@@ -585,8 +586,8 @@
         "rap": true,
         "rh": 0,
         "inputs": 0,
-        "x": 290,
-        "y": 1220,
+        "x": 270,
+        "y": 1080,
         "wires": [
             [
                 "1637e210a8c6ebdf",
@@ -606,8 +607,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 720,
-        "y": 1180,
+        "x": 740,
+        "y": 1060,
         "wires": [
             [
                 "be80a8dbe9e12382"
@@ -624,8 +625,8 @@
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 1100,
-        "y": 1160,
+        "x": 1160,
+        "y": 1040,
         "wires": [
             []
         ]
@@ -643,8 +644,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 470,
-        "y": 1160,
+        "x": 490,
+        "y": 1040,
         "wires": []
     },
     {
@@ -703,8 +704,8 @@
         "payloadType": "str",
         "topic": "topic",
         "topicType": "msg",
-        "x": 670,
-        "y": 300,
+        "x": 610,
+        "y": 360,
         "wires": [
             [
                 "449776b382bd916e"
@@ -724,8 +725,8 @@
         "format": "{{msg.payload}}",
         "layout": "col-center",
         "className": "",
-        "x": 1010,
-        "y": 1360,
+        "x": 1130,
+        "y": 1120,
         "wires": []
     },
     {
@@ -748,7 +749,7 @@
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
+        "removeOlderUnit": "86400",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -766,8 +767,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1070,
-        "y": 160,
+        "x": 1110,
+        "y": 240,
         "wires": [
             []
         ]
@@ -792,7 +793,7 @@
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
+        "removeOlderUnit": "86400",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -836,7 +837,7 @@
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
+        "removeOlderUnit": "86400",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -855,7 +856,7 @@
         "useDifferentColor": false,
         "className": "",
         "x": 1140,
-        "y": 640,
+        "y": 700,
         "wires": [
             []
         ]
@@ -880,7 +881,7 @@
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
+        "removeOlderUnit": "86400",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -898,8 +899,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1090,
-        "y": 1080,
+        "x": 1110,
+        "y": 1000,
         "wires": [
             []
         ]
@@ -924,7 +925,7 @@
         "ymax": "",
         "removeOlder": 1,
         "removeOlderPoints": "",
-        "removeOlderUnit": "3600",
+        "removeOlderUnit": "86400",
         "cutout": 0,
         "useOneColor": false,
         "useUTC": false,
@@ -942,8 +943,8 @@
         "outputs": 1,
         "useDifferentColor": false,
         "className": "",
-        "x": 1080,
-        "y": 1220,
+        "x": 1140,
+        "y": 1080,
         "wires": [
             []
         ]
@@ -1005,6 +1006,108 @@
         "x": 1130,
         "y": 860,
         "wires": []
+    },
+    {
+        "id": "283befccd7943fbb",
+        "type": "mqtt in",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "topic": "esp/DHT11/Humidite",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "84e0de939ececd51",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 100,
+        "wires": [
+            [
+                "49921c75746299c5",
+                "288cdaa3ba19a7e0",
+                "a152bb68602e87b9"
+            ]
+        ]
+    },
+    {
+        "id": "288cdaa3ba19a7e0",
+        "type": "ui_chart",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "group": "f11b5efe2ddbf16a",
+        "order": 0,
+        "width": "10",
+        "height": "6",
+        "label": "Hum",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "86400",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 1150,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5fadcabdfc38d276",
+        "type": "file",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "filename": "/home/pi/humidity.csv",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 1140,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a152bb68602e87b9",
+        "type": "function",
+        "z": "1bab7863175a2ce4",
+        "name": "",
+        "func": "//let tab = msg.payload[0];\n\n//msg.payload = tab.series[0] +\"\\n\";\n//msg.payload = msg.payload +\"time;data\\n\";\n//for(let i=0; i<tab.data[0].length;i++ )\n//{\n//    msg.payload = msg.payload + tab.data[0][i].x +\";\" + tab.data[0][i].y + \"\\n\";\n//}\n//var temp = String(msg.payload[0].data[0][msg.payload[0].data[0].length-1].x);\n//temp = temp.slice(0,temp.length-3);\n//msg.payload = temp +\";\" + msg.payload[0].data[0][msg.payload[0].data[0].length-1].y  ;\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 80,
+        "wires": [
+            [
+                "5fadcabdfc38d276"
+            ]
+        ]
     },
     {
         "id": "84e0de939ececd51",

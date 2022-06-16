@@ -1,24 +1,24 @@
 
 /* ESP8266 BROCHAGE
 
-                __________________
-          ADC0 | A0 o         o D0|  GPIO16   --> a connecter à RST pour DeeplSleep
-NC on some  5V | VU o         o D1|  GPIO5    --> SLK
-NC on some GND |  G o         o D2|  GPIO4    --> SDA
-        GPIO10 | S3 o         o D3|  GPIO0
-         GPIO9 | S2 o         o D4|  GPIO2    --> DHT signal
-          MOSI | S1 o         o 3V|  3.3V
-            CS | SC o         o G |  GND
-          MISO | SO o         o D5|  GPIO14
-          SCLK | SK o         o D6|  GPIO12   --> DHT +vcc allumage
-           GND |  G o         o D7|  GPIO13
-          3.3V | 3V o         o D8|  GPIO15   
-            EN | EN o         o RX|  GPIO3
-         Reset |RST o         o TX|  GPIO1
-           GND |  G o         o G |  GND      
-           Vin |VIN o         o 3V|  3.3V     --> interrupteur sur + batterie
-               |       ____       |
-               |______/====\______|
+                      __________________
+                ADC0 | A0 o         o D0|  GPIO16   --> a connecter avec RST pour DeeplSleep
+VCC des capteurs  5V | VU o         o D1|  GPIO5    --> i2c SLK
+                 GND |  G o         o D2|  GPIO4    --> i2c SDA
+              GPIO10 | S3 o         o D3|  GPIO0
+               GPIO9 | S2 o         o D4|  GPIO2    --> DHT pin S
+                MOSI | S1 o         o 3V|  3.3V
+                  CS | SC o         o G |  GND      --> GND des capteurs
+                MISO | SO o         o D5|  GPIO14
+                SCLK | SK o         o D6|  GPIO12   --> DHT +vcc allumage
+                 GND |  G o         o D7|  GPIO13
+                3.3V | 3V o         o D8|  GPIO15   
+                  EN | EN o         o RX|  GPIO3
+               Reset |RST o         o TX|  GPIO1
+                 GND |  G o         o G |  GND      
+                 Vin |VIN o         o 3V|  3.3V    
+                     |       ____       |
+                     |______/====\______|
 
 
 
@@ -36,67 +36,96 @@ NC on some GND |  G o         o D2|  GPIO4    --> SDA
 
 #include <DHTesp.h>
 
+/**
+ * Temps a fixer pour le deepsleep, ne pas oublier de connecter la broche D0 a RST
+ */
 #define TIME_TO_SLEEP           20 // en mn
-#define DHT_PIN_VCC             12
+
+
+/**
+ * GPIO du SIGNAL du DHT
+ */
 #define DHT_PIN                 2
-#define ESP32
 
 #define ESP8266
 
+/**
+ * si mis a 1, le Serial affichera des message pour debugger
+ */
 #define DEBUGING                 1
-#define MIROIR                   0
 
 
-  float temp;
-  float hum;
+/**
+ * variable globale pour stocker la mesur durant le setup, c'est mieux de demander une mesure avant de commencer une connexion wifi
+ * car il draine beaucoup de courant au risque d'en patir sur le DHT
+ */
+float temp;
+float hum;
 
 
-ADC_MODE(ADC_VCC); // pour renvoyer vcc sur ADC du coup on ne peut plus
+/**
+ * renvoyer la tension VCC sur l'adc pour pouvoir la mesurer, cela prive l'utilisation de l'adc !
+ */
+ADC_MODE(ADC_VCC);
 
-// declaration des capteurs
+/**
+ * déclaration des objets des capteurs
+ */
 DHTesp dht;
 Adafruit_SGP30 sgp;
 Adafruit_VEML7700 veml;
 
-// variable d'erreur pour les capteurs
+/**
+ * variable d'erreur pour les capteurs
+ */
 int8_t sgp_error = 1, veml_error = 1, dht_error = 1; 
 
-#if MIROIR == 1
 
-  const IPAddress remote_ip(192, 168, 137,67);//(192,168,137,161); // ip du broker a ping
-  const IPAddress router_ip(192,168, 137,1); // adresse ip du ROUTEUR
-  IPAddress subnet(255, 255, 255, 0);  //Subnet mask
-  //IPAddress dns(8, 8, 8, 8);  //DNS
-  //WIFI
-  const char* ssid = "SFR_D400_EXT"; // "Pc Hamza";
-  const char* password = "dmjq3fvp87csqq7zys79"; // "hamza123";
-  const IPAddress staticIP(192, 168, 137, 250); //ESP demande cette IP
-  //MQTT
-  const char* mqtt_server = "192.168.137.67 ";// "192.168.1.67";//Adresse IP du Broker Mqtt
-  const int mqttPort = 1883; //port utilisé par le Broker 
+/**
+ * Addresse du broker (Raspberry), pour le ping qui permet de savoir si le broker est connecté au réseau
+ */
+  const IPAddress remote_ip(192, 168, 1,200);
 
-#else
+/**
+ * Addresse du router
+ */
+  const IPAddress router_ip(192,168, 1,1);
 
-  const IPAddress remote_ip(192, 168, 1,200);//(192,168,137,161); // ip du broker a ping
-  const IPAddress router_ip(192,168, 1,1); // adresse ip du ROUTEUR
-  IPAddress subnet(255, 255, 255, 0);  //Subnet mask
-  //IPAddress dns(8, 8, 8, 8);  //DNS
-  //WIFI
-  const char* ssid = "SFR_D400"; // "Pc Hamza";
-  const char* password = "dmjq3fvp87csqq7zys79"; // "hamza123";
-  const IPAddress staticIP(192, 168, 1, 250); //ESP demande cette IP
-  //MQTT
-  const char* mqtt_server = "192.168.1.200 ";// "192.168.1.67";//Adresse IP du Broker Mqtt
-  const int mqttPort = 1883; //port utilisé par le Broker 
+/**
+ * masque de sous réseau
+ */
+  IPAddress subnet(255, 255, 255, 0);
 
-#endif
+/**
+ * Configuration WIFI
+ */
+  const char* ssid = "SFR_D400";
+
+  const char* password = "dmjq3fvp87csqq7zys79";
+
+/**
+ * L'adresse IP que demandera l'esp du router
+ */
+  const IPAddress staticIP(192, 168, 1, 250);
+
+/**
+ * Configuration du MQTT
+ */
+  const char* mqtt_server = "192.168.1.200 "; //Adresse IP du Broker Mqtt (Raspberry)
+  const int mqttPort = 1883;                  //port utilisé par le Broker 
+
 
 // objet pouvant contenir plusieurs ssid
 ESP8266WiFiMulti WiFiMulti;
 
+/**
+ * déclaration du client WIFI
+ */
 WiFiClient espClient;
 
-// declaration du client MQTT
+/**
+ * déclaration du client MQTT
+ */
 PubSubClient client(espClient);
 
 
@@ -109,23 +138,29 @@ PubSubClient client(espClient);
 
 void setup_wifi()
 {
-  //connexion au wifi
+  int tentatives = 0;
+
   WiFi.config(staticIP, subnet, router_ip);
+  // cette ligne permet d'ajouter d'autre SSID, si jamais le premier n'est pas trouver ainsi de suite, vous pouvez en ajouter autant que besoin
   WiFiMulti.addAP(ssid, password);
+  // WiFiMulti.addAP("Pc Hamza", "hamza123");
   #if  DEBUGING == 1
   
     Serial.print("\n\nconnection au wifi : ");
     Serial.print(ssid);
   
   #endif
-  while ( WiFiMulti.run() != WL_CONNECTED ) {
-    delay ( 500 );
-
+  while ( WiFiMulti.run() != WL_CONNECTED && tentatives < 20) {
+    delay ( 1000 );
+    tentatives++;
     #if DEBUGING == 1
       Serial.print ( "." );
     #endif
   }
+  if(tentatives >= 20){
 
+    
+  }
   #if DEBUGING == 1
   
     Serial.println("");
@@ -140,11 +175,7 @@ void setup_wifi()
 
 
 /*!
-* @brief 
-*
-*
-*
-*
+* @brief se connecte au broker MQTT
 *
 */
 void connect_mqtt(){
@@ -166,14 +197,13 @@ void connect_mqtt(){
     delay(2000);
     }
   }
-  //client.subscribe("led");//souscription au topic led pour commander une led
 }
 
 /*!
 *
 * @brief configure la connexion au serveur mqtt.
 * 
-*   Utilise variable global description donc pas besoin de parametre, mais il faut declarer et définir mqtt_server et mqttPort.
+*   Utilise variable global description donc pas besoin de parametre, mais il faut declarer et définir en vriable globale mqtt_server et mqttPort.
 *
 */
 
@@ -218,14 +248,10 @@ void test_and_connexion_mqtt()
 
 
 /*!
-* @brief 
-*
-*
-*
-*
+* @brief test et initialise le capteur SGP30
 *
 */
-void sgp_test()
+void sgp_testAndInit()
 {
   if (!sgp.begin())
   {// test de l'existence du capteur sur la liaision i2c
@@ -269,12 +295,7 @@ void sgp_test()
 }
 
 /*!
-* @brief 
-*
-*
-*
-*
-*
+* @brief test et configure le capteur VEML7700
 */
 
 void veml_test()
@@ -292,46 +313,13 @@ void veml_test()
   }
 }
 
+
 /*!
-* @brief 
-*
-*
-*
-*
+* @brief test et mesure l'humidité et la temperature
 *
 */
 
-void allumer_dht()
-{
-  pinMode(DHT_PIN_VCC, OUTPUT);
-  digitalWrite(DHT_PIN_VCC, HIGH);
-  delay(2000);
-}
-
-/*!
-* @brief 
-*
-*
-*
-*
-*
-*/
-
-void eteindre_dht()
-{
-  digitalWrite(DHT_PIN_VCC, LOW);
-}
-
-/*!
-* @brief 
-*
-*
-*
-*
-*
-*/
-
-void dht_test()
+void dht_testAndMeasure()
 {
    if(dht.getStatus() == 0)
   {
@@ -341,22 +329,10 @@ void dht_test()
     #endif
 
     dht_error = 0;
+    temp = dht.getTemperature();
+    hum = dht.getHumidity();
   }
-  temp = dht.getTemperature();
-  hum = dht.getHumidity();
 }
-
-
-
-
-//Fonction pour publier un float sur un topic 
-
-
-
-
-
-
-
 
 
 
@@ -413,15 +389,13 @@ void setup() {
   }
 
   #endif
-  sgp_test();
+  sgp_testAndInit();
 
   veml_test();
 
-  allumer_dht();
   dht.setup(DHT_PIN, DHTesp::DHT11);
-  dht_test();
+  dht_testAndMeasure();
 
-  //pinMode(4,INPUT); // port GPIO4 en mode Entrée
   
   setup_wifi();
   
@@ -429,9 +403,6 @@ void setup() {
 
   delay(1000); // tempo
 
-  
-  
-  //client.publish("test", "Hello from ESP8266");
 }
 //--------------------------------------------------------------------------------------------------------------------------------
 
@@ -443,56 +414,12 @@ void loop() {
  * 
  */
 
-#if MIROIR == 1
-
-    if(millis() - tps > 5)  
-    {
-
-      // si jamais le wifi se deconnecte, on reconnecte au wifi(utile que si on reste bloqué dans loop c'est a dire sans redemarré)
-      if(WiFiMulti.run() != WL_CONNECTED) 
-      {
-        setup_wifi();
-        test_and_connexion_mqtt();
-      }
-
-      if(sgp_error || veml_error || dht_error) ESP.restart();
-
-      sgp.IAQmeasure();
-      delay(2000);
-      sgp.IAQmeasureRaw();
-      delay(2000);
-      sgp.IAQmeasure();
-      delay(2000);
-      sgp.IAQmeasureRaw();
-      delay(2000);
-
-      // Publication des valeurs sur les differents Topics MQTT
-      mqtt_publish("esp/SGP30/CO2",sgp.eCO2);
-      mqtt_publish("esp/SGP30/H2",sgp.rawH2);
-      mqtt_publish("esp/SGP30/Ethanol",sgp.rawEthanol);
-      
-      mqtt_publish("esp/VEML/Lumiere",veml.readLux());
-      mqtt_publish("esp/DHT11/Temperature", 20.5);// dht.getTemperature());
-      
-      mqtt_publish("esp/Battery",(float)ESP.getVcc()/1000.0); // car en mV
-      
-      tps = millis();
-    }
-#else
-  
-  
-    delay(dht.getMinimumSamplingPeriod()); // on attend le temps necessaire pour avoir un echantillon
+    delay(dht.getMinimumSamplingPeriod()); // on attend le temps necessaire pour avoir un echantillon chez le DHT
     connect_mqtt();
     client.loop(); 
     
 
 
-    //On utilise pas un delay pour ne pas bloquer la réception des messages 
-    //on envoit des donnes toutes les secondes DEBUG car après on passera au sleep mode
-    //if (millis()-tps>10000)
-    
-      //tps=millis();
-        
       mqtt_publish("esp/Battery",(float)ESP.getVcc()/1000.0); // car en mV
 
       // partie traitement des informations SGP30
@@ -570,44 +497,9 @@ void loop() {
 
       if (! dht_error)
       {
-<<<<<<< HEAD
-        // temp = dht.getTemperature();
-        // Serial.println(temp,16);
-        // while(isnan(temp)){
-        //   #if DEBUGING == 1
-        //     Serial.println("aghhh temp is nan !");
-        //   #endif
-        //   delay(100);
-        //   temp = dht.getTemperature();
-
-        // }
-        // Serial.println(temp);
-        // #if DEBUGING == 1 
-        //   Serial.println(" DHT Values : publication...");
-        // #endif
-=======
-        temp = dht.getTemperature();
-        int cpt = 0;
-        while(isnan(temp) && cpt < 5){
-          #if DEBUGING == 1
-            Serial.println("aghhh temp is nan !");
-          #endif
-          dht.resetTimer();
-          delay(500);
-          temp = dht.getTemperature();
-          cpt++;
-        }
-        Serial.println(temp);
-        #if DEBUGING == 1 
-          Serial.println(" DHT Values : publication...");
-        #endif
->>>>>>> b7e8fa70e148bae6359d4c51700c097af616856c
+        // les valeurs ont été récuperés dans au moment du setup
         mqtt_publish("esp/DHT11/Temperature", temp);
-        // temp = dht.getHumidity();
         mqtt_publish("esp/DHT11/Humidite", hum);
-        // #if DEBUGING == 1 
-        //   Serial.println(" DHT Values : published !");
-        // #endif
         
       }
       else
@@ -641,7 +533,6 @@ void loop() {
       #if DEBUGING == 1
         Serial.println("power off dht");
       #endif
-      eteindre_dht();
 
       #if DEBUGING == 1
         Serial.print("sleeping for ");
@@ -652,7 +543,7 @@ void loop() {
 
       delay(250);
       ESP.deepSleep(TIME_TO_SLEEP*60*1000000);
-#endif
+
 
      
 }
