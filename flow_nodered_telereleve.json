@@ -71,12 +71,12 @@
         "type": "file",
         "z": "1bab7863175a2ce4",
         "name": "",
-        "filename": "/home/pi/test.csv",
+        "filename": "/home/pi/temperature.csv",
         "appendNewline": true,
         "createDir": false,
         "overwriteFile": "false",
         "encoding": "none",
-        "x": 1110,
+        "x": 1130,
         "y": 280,
         "wires": [
             []
@@ -216,7 +216,7 @@
         "type": "function",
         "z": "1bab7863175a2ce4",
         "name": "",
-        "func": "msg.payload = msg.payload * 3.3/ 65535;\n\n// mise au format Date;valeur\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
+        "func": "msg.payload = msg.payload;\n\n// mise au format Date;valeur\n\nmsg.payload = String(Date.now()).slice(0,10) +\";\" + msg.payload ;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
