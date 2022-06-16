@@ -1,24 +1,24 @@
 
 /* ESP8266 BROCHAGE
 
-                      __________________
-                ADC0 | A0 o         o D0|  GPIO16   --> a connecter avec RST pour DeeplSleep
-VCC des capteurs  5V | VU o         o D1|  GPIO5    --> i2c SLK
-                 GND |  G o         o D2|  GPIO4    --> i2c SDA
-              GPIO10 | S3 o         o D3|  GPIO0
-               GPIO9 | S2 o         o D4|  GPIO2    --> DHT pin S
-                MOSI | S1 o         o 3V|  3.3V
-                  CS | SC o         o G |  GND      --> GND des capteurs
-                MISO | SO o         o D5|  GPIO14
-                SCLK | SK o         o D6|  GPIO12   --> DHT +vcc allumage
-                 GND |  G o         o D7|  GPIO13
-                3.3V | 3V o         o D8|  GPIO15   
-                  EN | EN o         o RX|  GPIO3
-               Reset |RST o         o TX|  GPIO1
-                 GND |  G o         o G |  GND      
-                 Vin |VIN o         o 3V|  3.3V    
-                     |       ____       |
-                     |______/====\______|
+                      ______________________
+                ADC0 | A0 o            [o D0|  GPIO16   --> a connecter avec RST pour DeeplSleep
+VCC des capteurs  5V | VU o           / o D1|  GPIO5    --> i2c SLK
+                 GND |  G o          /  o D2|  GPIO4    --> i2c SDA
+              GPIO10 | S3 o         /   o D3|  GPIO0
+               GPIO9 | S2 o        /    o D4|  GPIO2    --> DHT pin S
+                MOSI | S1 o       /     o 3V|  3.3V
+                  CS | SC o      /      o G |  GND      --> GND des capteurs
+                MISO | SO o     /       o D5|  GPIO14
+                SCLK | SK o    /        o D6|  GPIO12   
+                 GND |  G o   /         o D7|  GPIO13
+                3.3V | 3V o  /          o D8|  GPIO15   
+                  EN | EN o /           o RX|  GPIO3
+               Reset |RST o]            o TX|  GPIO1
+                 GND |  G o             o G |  GND      
+                 Vin |VIN o             o 3V|  3.3V    
+                     |         ____         |
+                     |________/====\________|
 
 
 
@@ -87,7 +87,7 @@ int8_t sgp_error = 1, veml_error = 1, dht_error = 1;
   const IPAddress remote_ip(192, 168, 1,200);
 
 /**
- * Addresse du router
+ * Addresse du router(point d'accès)
  */
   const IPAddress router_ip(192,168, 1,1);
 
@@ -158,7 +158,8 @@ void setup_wifi()
     #endif
   }
   if(tentatives >= 20){
-
+    //on dort pour 10mn
+    ESP.deepSleep(10*60*1000000);
     
   }
   #if DEBUGING == 1
@@ -497,7 +498,7 @@ void loop() {
 
       if (! dht_error)
       {
-        // les valeurs ont été récuperés dans au moment du setup
+        // les valeurs ont été récuperés au moment du setup
         mqtt_publish("esp/DHT11/Temperature", temp);
         mqtt_publish("esp/DHT11/Humidite", hum);
         
