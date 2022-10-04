@@ -43,7 +43,7 @@ vous pouver desormais ouvrir l'interface web : "http://IP_Rasp:1880/ui"
 ![telereleve_bb](https://user-images.githubusercontent.com/77698738/174764630-adb36bbe-234c-4ff6-8448-65f6db73b855.jpg)
 
 ### PlatfromIO
-Ouvrer ce prjet à l'aide de platformIO,
+Ouvrer ce projet à l'aide de platformIO,
 il faut modifier le code ![main.cpp](https://github.com/hmz-rhl/telereleve/blob/master/src/main.cpp) pour donner le bon setup wifi, ainsi que l'adresse IP du routeur ainsi que celle de la Raspberry, enfin il faudra la aussi donner une IP pour l'ESP,
 lisez les commentaires du fichier main.cpp pour etres guider
 
